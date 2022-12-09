@@ -6,13 +6,13 @@
 #    By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/24 16:48:08 by bda-silv          #+#    #+#              #
-#*   Updated: 2022/11/21 19:26:08 by                  ###   ########.fr       *#
+#*   Updated: 2022/12/08 21:18:24 by                  ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
 #
 #.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*. SPECS .*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.
 
-PROJ				=	push_swap
+PROJ				=	fractol
 
 SRCS_DIR			=	./src/
 OBJS_DIR			=	./obj/
@@ -21,7 +21,12 @@ LIBS_DIR			=	./lib/
 
 #.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*. SETUP .*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.
 
-LIBS_NAME			=	$(shell cd $(LIBS_DIR); ls -d */)
+LIB_LIBFT
+LIB_MLX
+
+
+
+LIBS_NAME			=	$(shell cd $(LIBS_DIR); ls -d $(ls)/)
 LIBS_PATH			=	$(addprefix $(LIBS_DIR), $(LIBS_NAME))
 SRCS_NAME			=	$(shell ls $(SRCS_DIR) | grep -E ".+\.c")
 SRCS				=	$(addprefix $(SRCS_DIR), $(SRCS_NAME))
@@ -69,6 +74,7 @@ $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 	$(CC) $(CFLAGS) -I$(INCS_DIR) -o $@ -c $<
 
 $(LIBS) :
+	echo $(LIBS_PATH) / $(LIBS)
 	$(MAKE) -C $(LIBS_PATH)
 
 $(NAME) : $(OBJS) $(LIBS)
@@ -115,8 +121,6 @@ gig :
 		echo "*.out" >> .gitignore ; \
 		echo "*.dSYM" >> .gitignore ; \
 		echo ".DS_Store" >> .gitignore ; \
-		echo "checker_Mac" >> .gitignore ; \
-		echo "push_swap" >> .gitignore ; \
 		cat -n .gitignore ; \
 	fi
 
@@ -164,6 +168,7 @@ endif
 ok:=✓
 ko:=✗
 ck:=・
+ls:=*
 s:=\033[0
 red:=$s31m
 grn:=$s32m
