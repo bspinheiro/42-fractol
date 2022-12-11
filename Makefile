@@ -6,7 +6,7 @@
 #    By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/24 16:48:08 by bda-silv          #+#    #+#              #
-#*   Updated: 2022/12/08 21:18:24 by                  ###   ########.fr       *#
+#*   Updated: 2022/12/10 21:54:57 by                  ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
 #
@@ -14,38 +14,46 @@
 
 PROJ				=	fractol
 
-SRCS_DIR			=	./src/
-OBJS_DIR			=	./obj/
-INCS_DIR			=	./inc/
-LIBS_DIR			=	./lib/
+SRCS_DIR			=	src/
+OBJS_DIR			=	obj/
+INCS_DIR			=	inc/
+LIBS_DIR			=	lib/
 
 #.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*. SETUP .*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.
 
-LIB_LIBFT
-LIB_MLX
+LIBFT				=	$(addprefix $(LIBS_DIR), libft)
 
+LIBS_NAME			=	$(shell cd $(LIBS_DIR); ls -d $(ls)/ | grep -E "")
+LIBS_PATH			=	$(addprefix $(LIBS_DIR:.=), $(LIBS_NAME))
+LIBS_				=	$(join $(LIBS_PATH),$(LIBS_NAME:/=))					# Check LIBS populating
+LIBS				=	$(addsuffix .a, $(LIBS_))
 
-
-LIBS_NAME			=	$(shell cd $(LIBS_DIR); ls -d $(ls)/)
-LIBS_PATH			=	$(addprefix $(LIBS_DIR), $(LIBS_NAME))
 SRCS_NAME			=	$(shell ls $(SRCS_DIR) | grep -E ".+\.c")
 SRCS				=	$(addprefix $(SRCS_DIR), $(SRCS_NAME))
 OBJS				=	$(addprefix $(OBJS_DIR), $(SRCS_NAME:.c=.o))
-LIBS				=	$(addsuffix $(LIBS_NAME:/=).a, $(LIBS_PATH))
+
 SRC					=	$(SRCS_NAME:.c=)
 NAME				=	$(SRC)
 
 CC					=	cc
 CFLAGS				=	-Wall -Wextra -Werror -g
-CPPFLAGS			=	-g
 
 MD					=	mkdir -p
-AR					=	ar rcs
+AR					=	ar -rcs
 RL					=	ranlib
 RM					=	rm -rf
 
 #.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*. ROUTE .*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.
+detected_OS	:=	$(shell uname)
 
+ifeq ($(detected_OS), Darwin)
+  MLX		=	$(addprefix $(LIBS_DIR), mlx)
+  OCFLAGS	=	$(CFLAGS) -L $(MLX) -lmlx -framework OpenGL -framework AppKit
+else
+  MLX		=	$(addprefix $(LIBS_DIR), mlx_linux)
+  OCFLAGS	=	$(CFLAGS) -L $(MLX) -lmlx_linux -L/usr/lib -Imlx_linux -lXext \
+-lX1 -lm -lz1
+endif
 ifeq (run,$(firstword $(MAKECMDGOALS)))
   RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
   $(eval $(RUN_ARGS):;@:)
@@ -64,7 +72,7 @@ endif
 
 #.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*. RULES .*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.
 
-all : $(OBJS_DIR) $(LIBS) $(NAME)
+all : $(OBJS_DIR) $(NAME)
 
 $(OBJS_DIR) :
 	$(MD) $(OBJS_DIR)
@@ -73,21 +81,36 @@ $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 	@echo "$(ora)$(ck)	Creating		$@$(rst)"
 	$(CC) $(CFLAGS) -I$(INCS_DIR) -o $@ -c $<
 
-$(LIBS) :
-	echo $(LIBS_PATH) / $(LIBS)
-	$(MAKE) -C $(LIBS_PATH)
+libft:
+	$(MAKE) -C $(LIBFT)
 
-$(NAME) : $(OBJS) $(LIBS)
-	-$(CC) $(CFLAGS) $(LIBS) -o $@ $(addprefix $(OBJS_DIR), $@.o)
+mlx:
+	$(MAKE) -C $(MLX)
+
+show: 																			# Show Variables
+	echo LIBS_NAME: $(LIBS_NAME)
+	echo LIBS_PATH: $(LIBS_PATH)
+	echo LIBS_: $(LIBS_)
+	echo LIBS : $(LIBS)
+	echo OBJS: $(OBJS)
+	echo SRC: $(SRC) $(OCFLAGS)
+
+$(LIBS) :																		# NOT WORKING
+	$(MAKE) -C $(LIBS)
+
+$(NAME) : $(OBJS) libft mlx														# Quick Fix
+	-$(CC) $(OBJS) $(LIBFT)/libft.a $(OCFLAGS) -o $@							# Quick Fix
 	@echo "$(grn)$(ok)	Compiled		$@$(rst)"
 
 clean :
-	$(MAKE) $@ -C $(LIBS_PATH)
+	$(MAKE) $@ -C $(LIBFT)
+	$(MAKE) $@ -C $(MLX)
 	$(RM) $(OBJS_DIR)
 	@echo "$(red)$(ko)	Removing		$(OBJS_DIR)$(rst)"
 
 fclean :
-	$(MAKE) $@ -C $(LIBS_PATH)
+	$(MAKE) $@ -C $(LIBFT)
+	$(MAKE) $@ -C $(MLX)
 	$(RM) $(SRC) $(OBJS_DIR)
 	@echo "$(red)$(ko)	Removing		$(SRC)$(rst)"
 
