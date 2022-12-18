@@ -6,7 +6,7 @@
 #    By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/24 16:48:08 by bda-silv          #+#    #+#              #
-#*   Updated: 2022/12/10 21:54:57 by                  ###   ########.fr       *#
+#*   Updated: 2022/12/10 22:40:02 by                  ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
 #
@@ -36,7 +36,7 @@ SRC					=	$(SRCS_NAME:.c=)
 NAME				=	$(SRC)
 
 CC					=	cc
-CFLAGS				=	-Wall -Wextra -Werror -g
+CFLAGS				=	-Wall -Wextra
 
 MD					=	mkdir -p
 AR					=	ar -rcs
