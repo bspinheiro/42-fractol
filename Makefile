@@ -6,7 +6,7 @@
 #    By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/24 16:48:08 by bda-silv          #+#    #+#              #
-#*   Updated: 2022/12/10 22:40:02 by                  ###   ########.fr       *#
+#*   Updated: 2023/01/03 17:12:57 by                  ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
 #
@@ -36,7 +36,7 @@ SRC					=	$(SRCS_NAME:.c=)
 NAME				=	$(SRC)
 
 CC					=	cc
-CFLAGS				=	-Wall -Wextra
+CFLAGS				=	-Wall -Wextra -Werror
 
 MD					=	mkdir -p
 AR					=	ar -rcs
@@ -48,7 +48,7 @@ detected_OS	:=	$(shell uname)
 
 ifeq ($(detected_OS), Darwin)
   MLX		=	$(addprefix $(LIBS_DIR), mlx)
-  OCFLAGS	=	$(CFLAGS) -L $(MLX) -lmlx -framework OpenGL -framework AppKit
+  OCFLAGS	=	$(CFLAGS) -L $(MLX) -lm -lmlx -framework OpenGL -framework AppKit
 else
   MLX		=	$(addprefix $(LIBS_DIR), mlx_linux)
   OCFLAGS	=	$(CFLAGS) -L $(MLX) -lmlx_linux -L/usr/lib -Imlx_linux -lXext \
