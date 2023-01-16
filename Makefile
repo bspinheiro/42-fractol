@@ -6,7 +6,7 @@
 #    By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/24 16:48:08 by bda-silv          #+#    #+#              #
-#*   Updated: 2023/01/16 11:09:47 by                  ###   ########.fr       *#
+#*   Updated: 2023/01/16 17:35:27 by                  ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
 #
@@ -94,6 +94,7 @@ show: 																			# Show Variables
 	echo LIBS : $(LIBS)
 	echo OBJS: $(OBJS)
 	echo SRC: $(SRC) $(OCFLAGS)
+	echo LIBX: $(OCFLAGS)
 
 $(LIBS) :																		# NOT WORKING
 	$(MAKE) -C $(LIBS)
