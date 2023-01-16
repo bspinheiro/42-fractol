@@ -6,19 +6,28 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/01/03 18:55:52 by marvin           ###   ########.fr       */
+/*   Updated: 2023/01/07 19:22:39 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include <stdio.h>
 
-double xMin = -2.00;
-double xMax =  0.47;
-double yMin = -1.12;
-double yMax = +1.12;
+/* TODO
+ * - Enviar para router
+ * * Controller
+ * * TRGB
+ * * Julia
+ * * Refactor
+ *
+ * */
 
-typedef struct s_data {															// fractol.h
+typedef struct	s_data {										// fractol.h
+	char	*type;
+	double	xmin;
+	double	xmax;
+	double	ymin;
+	double	ymax;
 	void	*mlx;
 	void	*win;
 	void	*ptr;
@@ -28,16 +37,20 @@ typedef struct s_data {															// fractol.h
 	int		edn;
 }			t_data;
 
-unsigned int  mandelbrot(double x0, double y0)
+unsigned int	mandelbrot(double x0, double y0)
 {
-	double x = 0; 																//z=(x+iy)
-	double y = 0;
-	int i = 0;
+	double	x; 												//z=(x+iy)
+	double	y;
+	int	i;
 
+	x = 0;
+	y = 0;
+	i = 0;
 	// |z|<=2, zˆ2<= 4
 	while(x*x + y*y <= 2*2 && i < IMAX)
 	{
-		double proxZX, proxZY;
+		double proxZX;
+		double proxZY;
 		// proxZ = Zˆ2 + C
 		proxZX = x*x - y*y + x0;
 		proxZY = 2*x*y + y0;
@@ -48,16 +61,15 @@ unsigned int  mandelbrot(double x0, double y0)
 	return (i);
 }
 
-double screenToX(unsigned int x)
+double screenToX(t_data *id, unsigned int x)
 {
-	return xMin + x*(xMax - xMin)/WIDTH;
+	return id->xmin + x*(id->xmax - id->xmin)/WIDTH;
 }
 
-double screenToY(unsigned int y)
+double screenToY(t_data *id, unsigned int y)
 {
-	return yMin + y*(yMax - yMin)/HEIGHT;
+	return id->ymin + y*(id->ymax - id->ymin)/HEIGHT;
 }
-
 
 void	draw(t_data *img, int x, int y, int color)								// view model
 {
@@ -78,7 +90,7 @@ void render(t_data *id, int color)												// view model
 	{
 		while(x != WIDTH)
 		{
-			int it = mandelbrot(screenToX(x), screenToY(y));
+			int it = mandelbrot(screenToX(id, x), screenToY(id, y));
 			color = it%255;
 			draw(id, x, y, color);
 			x++;
@@ -89,7 +101,7 @@ void render(t_data *id, int color)												// view model
 	mlx_put_image_to_window(id->mlx, id->win, id->ptr, 0, 0);
 }
 
-void fractol_init(t_data *id)													// controller and events
+void fractol_init(t_data *id)//													Controller and events
 {
 	(*id).mlx = mlx_init();
 	(*id).win = mlx_new_window(id->mlx, WIDTH, HEIGHT, "Fractol");
@@ -97,13 +109,65 @@ void fractol_init(t_data *id)													// controller and events
 	(*id).adr = mlx_get_data_addr(id->ptr, &id->bpp, &id->len, &id->edn);
 }
 
-int	main(void)																	// router
+void helper(void)
+{
+	ft_printf("Error! incorrect parameter -- must specify fractol name.\n");
+	ft_printf("Usage: ./fractol [mandelbrot | julia]\n");
+}
+
+void normalize(char **argv)
+{
+	int i;
+	int p;
+
+	p = 0;
+	while(argv[++p]);
+	p = p - 1;
+	while (p != 0)
+	{
+		i = 0;
+		while (argv[p][i])
+		{
+			argv[p][i] = ft_tolower(argv[p][i]);
+			i++;
+		}
+		p--;
+	}
+}
+
+void set(t_data *i, char *t, double xmin, double xmax, double ymin, double ymax)
+{
+	(*i).type = t;
+	(*i).xmin = xmin;
+	(*i).xmax = xmax;
+	(*i).ymin = ymin;
+	(*i).ymax = ymax;
+}
+
+void parse(char **argv, t_data *id)
+{
+	if (ft_strcmp(argv[1], "mandelbrot") == 0)
+		set(id, "mandelbrot", -2.00, 0.47, -1.12, 1.12);
+	else if (ft_strcmp(argv[1], "julia") == 0)
+		(*id).type = "julia";
+	else
+		helper();
+}
+
+int	main(int argc, char **argv)//												Router
 {
 	t_data	img;
 
-	fractol_init(&img);
-	render(&img, 0x0000FFFF);
-	mlx_loop(img.mlx);
+	if (argc == 2)
+	{
+		normalize(argv);
+		parse(argv, &img);
+		fractol_init(&img);
+		render(&img, 0x000000AA);
+		mlx_loop(img.mlx);
+	}
+	else
+		helper();
 	return (0);
 }
 
