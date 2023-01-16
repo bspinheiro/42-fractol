@@ -1,48 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.c                                          :+:      :+:    :+:   */
+/*   router.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/01/16 09:01:24 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/01/16 08:50:36 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
 /* TODO
- * - Enviar para router
- * * Controller
- * * TRGB
- * * Julia
- * * Refactor
  *
  * */
-
-int	main(int argc, char **argv)
+void	helper(void)
 {
-	t_data	img;
-
-	if (argc == 2)
-	{
-		normalize(argv);
-		parse(argv, &img);
-		fractol_init(&img);
-		render(&img, 0x000000AA);
-		mlx_loop(img.mlx);
-	}
-	else
-		helper();
-	return (0);
+	ft_printf("Error! incorrect parameter -- must specify fractol name.\n");
+	ft_printf("Usage: ./fractol [mandelbrot | julia]\n");
 }
 
-/*
-	mlx_put_image_to_window(img.mlx, img.win, img.ptr, 0, 0);
-	mlx_string_put(img.mlx, img.window, 200, 200, 0x00FF0000, "Hello you!");
+void	normalize(char **argv)
+{
+	int	i;
+	int	p;
 
-	mlx_destroy_window(img.mlx, img.window);
-	mlx_destroy_display(&img.mlx);
-	free(img.mlx);
-*/
+	p = 0;
+	while (argv[++p]);
+	p = p - 1;
+	while (p != 0)
+	{
+		i = 0;
+		while (argv[p][i])
+		{
+			argv[p][i] = ft_tolower(argv[p][i]);
+			i++;
+		}
+		p--;
+	}
+}
+
+void	parse(char **argv, t_data *id)
+{
+	if (ft_strcmp(argv[1], "mandelbrot") == 0)
+		set(id, "mandelbrot", -2.00, 0.47, -1.12, 1.12);
+	else if (ft_strcmp(argv[1], "julia") == 0)
+		(*id).type = "julia";
+	else
+		helper();
+}

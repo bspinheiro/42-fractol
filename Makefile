@@ -6,7 +6,7 @@
 #    By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/24 16:48:08 by bda-silv          #+#    #+#              #
-#*   Updated: 2023/01/03 17:12:57 by                  ###   ########.fr       *#
+#*   Updated: 2023/01/16 11:09:47 by                  ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
 #
@@ -101,6 +101,7 @@ $(LIBS) :																		# NOT WORKING
 $(NAME) : $(OBJS) libft mlx														# Quick Fix
 	-$(CC) $(OBJS) $(LIBFT)/libft.a $(OCFLAGS) -o $@							# Quick Fix
 	@echo "$(grn)$(ok)	Compiled		$@$(rst)"
+	$(RM) _$(ls)
 
 clean :
 	$(MAKE) $@ -C $(LIBFT)
