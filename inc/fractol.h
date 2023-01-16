@@ -6,16 +6,16 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 07:48:08 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/01/16 16:03:13 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/01/16 18:05:42 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-# define WIDTH  (1920)
-# define HEIGHT (1080)
-# define IMAX   (30)
+# define WIDTH  (900)
+# define HEIGHT (900)
+# define IMAX   (100)
 
 # include "../lib/libft/inc/libft.h"
 # include "../lib/mlx/mlx.h"

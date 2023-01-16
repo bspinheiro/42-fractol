@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/01/16 15:59:04 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/01/16 18:02:28 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,11 @@ void	render(t_data *id, int color)
 		while (x != WIDTH)
 		{
 			i = mandelbrot(screen_to_x(id, x), screen_to_y(id, y));
-			color = (i % 255);
+			if (i != IMAX)
+				color = 0x00AABBCC - 30*i;
+			else
+				color = 0x00000000;
+			//color = color * i % 255;
 			draw(id, x, y, color);
 			x++;
 		}
