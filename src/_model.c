@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/01/16 17:56:22 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/01/24 11:26:22 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /* TODO
  *
  * */
-unsigned int	mandelbrot(double x0, double y0)
+int	mandelbrot(double x0, double y0)
 {
 	double	x;
 	double	y;
@@ -36,5 +36,24 @@ unsigned int	mandelbrot(double x0, double y0)
 		y = next_y;
 		i++;
 	}
+	return (i);
+}
+
+double	julia(double cr, double ci, double zr, double zi)
+{
+	double	tempi;
+	double	tempr;
+	int		i;
+
+	i = 0;
+	while (zr * zr + zi * zi <= 2 * 2 && i < IMAX)
+	{
+		tempr = zr * zr - zi * zi + cr;
+		tempi = 2 * zr * zi + ci;
+		zr = tempr;
+		zi = tempi;
+		i++;
+	}
+	//i = i + 1 - log(log2(fabs(zi * zi + zr * zr)));
 	return (i);
 }
