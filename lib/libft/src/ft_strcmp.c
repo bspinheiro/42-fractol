@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 12:21:37 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/01/04 00:44:10 by marvin           ###   ########.fr       */
+/*   Updated: 2023/01/30 11:05:41 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 int ft_strcmp(const char *s1, const char *s2)
 {
-	return (ft_strncmp(s1, s2, ft_strlen(s1)));
+	return (ft_strncmp(s1, s2, ft_strlen(s2)));
 }
