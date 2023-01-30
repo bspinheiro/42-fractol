@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/01/30 11:33:49 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/01/30 17:18:39 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
  ** Excluir color de render
  ** Trabalhar Paleta de cores
 */
-double	screen_to_x(t_data *id, unsigned int x)
+double	delta_x(t_data *id, unsigned int x)
 {
 	return (id -> xmin + x * (id -> xmax - id-> xmin) / WIDTH);
 }
 
-double	screen_to_y(t_data *id, unsigned int y)
+double	delta_y(t_data *id, unsigned int y)
 {
 	return (id -> ymin + y * (id -> ymax - id -> ymin) / HEIGHT);
 }
@@ -52,14 +52,19 @@ void	render(t_data *id, int color)
 	{
 		while (x != WIDTH)
 		{
-			i = mandelbrot(screen_to_x(id, x), screen_to_y(id, y), 0, 0);
-			//i = julia(-0.8, +0.156, screen_to_x(id, x), screen_to_y(id, y));
-			//i = julia(screen_to_x(id, x), screen_to_y(id, y), 0, 0);
+			if (ft_strcmp(id->type, "mandelbrot") == 0)
+				i = mandelbrot(delta_x(id, x), delta_y(id, y), 0, 0);
+			else if (ft_strcmp(id->type, "julia") == 0)
+				i = julia(-0.8, +0.156, delta_x(id, x), delta_y(id, y));
+			else
+				i = IMAX;
 			if (i == IMAX)
 				color = 0x00000000;
 				//color = 0x00AABBCC - 30 * i;
 			else
 				color = i * 255 / IMAX;
+				//paleta = color(0x00AABBCC) * i * correcao (if int > pot 2;
+				//corr = 1)
 			draw(id, x, y, color);
 			x++;
 		}
