@@ -6,20 +6,18 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/01/23 16:30:05 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/01/27 16:26:14 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
 /* TODO
- * - Enviar para router
- * * Controller
- * * TRGB
- * * Julia
- * * Refactor
- *
- * */
+ ** Implementar fechamentos
+ ** Implementar Msgs de Erro com códigos de saída
+ ** Implementar Eventos
+ ** Makefile
+*/
 
 int	main(int argc, char **argv)
 {

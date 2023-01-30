@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 07:48:08 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/01/24 11:25:43 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/01/27 16:50:24 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_data {
 }			t_data;
 
 /* MODEL */
-int		mandelbrot(double x0, double y0);
+double	mandelbrot(double cr, double ci, double zr, double zi);
 double	julia(double cr, double ci, double zr, double zi);
 
 /* VIEW */

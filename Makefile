@@ -6,7 +6,7 @@
 #    By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/24 16:48:08 by bda-silv          #+#    #+#              #
-#*   Updated: 2023/01/16 17:35:27 by                  ###   ########.fr       *#
+#*   Updated: 2023/01/30 10:24:57 by                  ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
 #
@@ -48,7 +48,7 @@ detected_OS	:=	$(shell uname)
 
 ifeq ($(detected_OS), Darwin)
   MLX		=	$(addprefix $(LIBS_DIR), mlx)
-  OCFLAGS	=	$(CFLAGS) -L $(MLX) -lm -lmlx -framework OpenGL -framework AppKit
+  OCFLAGS	=	$(CFLAGS) -g -L $(MLX) -lm -lmlx -framework OpenGL -framework AppKit
 else
   MLX		=	$(addprefix $(LIBS_DIR), mlx_linux)
   OCFLAGS	=	$(CFLAGS) -L $(MLX) -lmlx_linux -L/usr/lib -Imlx_linux -lXext \
