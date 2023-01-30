@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 07:48:08 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/01/27 16:50:24 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/01/30 15:56:59 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,22 @@ typedef struct s_data {
 	int		palet;
 }			t_data;
 
+
 /* MODEL */
 double	mandelbrot(double cr, double ci, double zr, double zi);
 double	julia(double cr, double ci, double zr, double zi);
 
 /* VIEW */
-double	screen_to_x(t_data *id, unsigned int x);
-double	screen_to_y(t_data *id, unsigned int y);
+double	delta_x(t_data *id, unsigned int x);
+double	delta_y(t_data *id, unsigned int y);
 void	draw(t_data *img, int x, int y, int color);
 void	render(t_data *id, int color);
 
 /* CONTROLLER */
 void	fractol_init(t_data *id);
-void	set(t_data *i, char *t, double xn, double xx, double yn, double yx);
+void	set_model(t_data *id, char *t);
+void	axis_x(t_data *id, double xmin, double xmax);
+void	axis_y(t_data *id, double ymin, double ymax);
 
 /* ROUTER */
 void	helper(void);

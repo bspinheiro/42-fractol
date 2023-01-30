@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   controller.c                                       :+:      :+:    :+:   */
+/*   _controller.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/01/16 09:12:15 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/01/30 15:36:09 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,21 @@ void	fractol_init(t_data *id)
 	(*id).adr = mlx_get_data_addr(id->ptr, &id->bpp, &id->len, &id->edn);
 }
 
-void	set(t_data *i, char *t, double xmin, double xmax, double ymin, double ymax)
+void	set_model(t_data *id, char *t)
 {
-	(*i).type = t;
-	(*i).xmin = xmin;
-	(*i).xmax = xmax;
-	(*i).ymin = ymin;
-	(*i).ymax = ymax;
+	(*id).type = t;
 }
+
+void	axis_x(t_data *id, double xmin, double xmax)
+{
+	(*id).xmin = xmin;
+	(*id).xmax = xmax;
+}
+
+void	axis_y(t_data *id, double ymin, double ymax)
+{
+	(*id).ymin = ymin;
+	(*id).ymax = ymax;
+}
+
+

@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/01/30 11:10:05 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/01/30 15:42:38 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,19 @@ void	parse(char **argv, t_data *id)
 {
 	if (ft_strcmp(argv[1], "mandelbrot") == 0)
 	{
-		set(id, "mandelbrot", -2.00, 0.47, -1.12, 1.12);
-		ft_printf("Mandelbrot selected!");
+		set_model(id, "mandelbrot");
+		axis_x(id, -2.00, +0.47);
+		axis_y(id, -1.12, +1.12);
 	}
 	else if (ft_strcmp(argv[1], "julia") == 0)
 	{
-		set(id, "julia", -2.1, 1.9, -2.1, 1.9);
-		ft_printf("Julia selected!");
+		set_model(id, "julia");
+		axis_x(id, -2.1, +1.90);
+		axis_y(id, -2.1, +1.90);
 	}
 	else
+	{
 		helper();
+		exit(1);
+	}
 }
