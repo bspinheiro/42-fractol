@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/01/30 15:36:09 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/02 17:45:23 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,3 @@ void	axis_y(t_data *id, double ymin, double ymax)
 	(*id).ymin = ymin;
 	(*id).ymax = ymax;
 }
-
-
