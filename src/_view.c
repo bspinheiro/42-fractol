@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/01/30 17:18:39 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/02 17:40:55 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	render(t_data *id, int color)
 			if (ft_strcmp(id->type, "mandelbrot") == 0)
 				i = mandelbrot(delta_x(id, x), delta_y(id, y), 0, 0);
 			else if (ft_strcmp(id->type, "julia") == 0)
-				i = julia(-0.8, +0.156, delta_x(id, x), delta_y(id, y));
+				i = julia(delta_x(id, x), delta_y(id, y), -0.8, +0.156);
 			else
 				i = IMAX;
 			if (i == IMAX)

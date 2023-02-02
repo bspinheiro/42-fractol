@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/01/30 17:18:26 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/02 17:40:17 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 /* TODO
  ** Usar função
+ ** Tricorn? tempi = -2 * zr ...
 */
 
-double	julia(double cr, double ci, double zr, double zi)
+double	julia(double zr, double zi, double cr, double ci)
 {
 	double	tempi;
 	double	tempr;
@@ -39,5 +40,5 @@ double	mandelbrot(double cr, double ci, double zr, double zi)
 {
 	zr = 0;
 	zi = 0;
-	return (julia(cr, ci, zr, zi));
+	return (julia(zr, zi, cr, ci));
 }
