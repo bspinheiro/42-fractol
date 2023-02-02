@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/02 17:40:17 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/02 17:51:15 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 /* TODO
  ** Usar função
+ ** Implemntar Tricorn
  ** Tricorn? tempi = -2 * zr ...
 */
 

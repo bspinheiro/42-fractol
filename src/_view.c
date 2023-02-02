@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/02 17:40:55 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/02 19:24:11 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,32 +40,50 @@ int	trgb(int t, int r, int g, int b)
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-void	render(t_data *id, int color)
+
+double	trigger(t_data *id, double x0, double y0)
+{
+		//return (&mandelbrot(delta_x(id, x), delta_y(id, y), 0, 0));
+		//return (&julia(delta_x(id, x), delta_y(id, y), -0.8, +0.156));
+	if (ft_strcmp(id->type, "mandelbrot") == 0)
+		return (mandelbrot(x0, y0, 0, 0));
+	else if (ft_strcmp(id->type, "julia") == 0)
+		return (julia(x0, y0, -0.8, +0.156));
+	else
+		return (0);
+}
+
+void	render(t_data *id, int clr)
 {
 	unsigned int	x;
 	unsigned int	y;
+	double	x0;
+	double	y0;
 	double			i;
 
 	x = 0;
 	y = 0;
 	while (y != HEIGHT)
 	{
+		y0 = id -> ymin + y * (id-> ymax - id->ymin) / HEIGHT;
 		while (x != WIDTH)
 		{
+			x0 = id -> xmin + x * (id->xmax - id->xmin) / WIDTH;
+			/* 
 			if (ft_strcmp(id->type, "mandelbrot") == 0)
-				i = mandelbrot(delta_x(id, x), delta_y(id, y), 0, 0);
+				i = mandelbrot(x0, y0, 0, 0);
 			else if (ft_strcmp(id->type, "julia") == 0)
-				i = julia(delta_x(id, x), delta_y(id, y), -0.8, +0.156);
-			else
-				i = IMAX;
+				i = julia(x0, y0, -0.8, +0.156);
+				*/
+			i = trigger(id, x0, y0);
 			if (i == IMAX)
-				color = 0x00000000;
+				clr = 0x00000000;
 				//color = 0x00AABBCC - 30 * i;
 			else
-				color = i * 255 / IMAX;
+				clr = i * 255 / IMAX;
 				//paleta = color(0x00AABBCC) * i * correcao (if int > pot 2;
 				//corr = 1)
-			draw(id, x, y, color);
+			draw(id, x, y, clr);
 			x++;
 		}
 		x = 0;
