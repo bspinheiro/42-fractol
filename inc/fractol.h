@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 07:48:08 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/03 14:09:06 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/03 16:03:15 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # define HEIGHT (1080)
 # define IMAX   (10)
 
+# define FAILURE (1)
+# define SUCCESS (0)
+#
 # include "../lib/libft/inc/libft.h"
 # include "../lib/mlx/mlx.h"
 # include <math.h>
@@ -46,8 +49,7 @@ double	mandelbrot(double cr, double ci, double zr, double zi);
 double	julia(double zr, double zi, double cr, double ci);
 
 /* VIEW */
-double	delta_x(t_data *id, unsigned int x);
-double	delta_y(t_data *id, unsigned int y);
+double	trigger(t_data *id, double x, double y);
 void	draw(t_data *img, int x, int y, int color);
 void	render(t_data *id, int clr);
 
