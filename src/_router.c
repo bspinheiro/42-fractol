@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/02 17:36:53 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/03 17:12:39 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 void	helper(void)
 {
 	ft_printf("Error! incorrect parameter -- must specify fractol name.\n");
-	ft_printf("Usage: ./fractol [mandelbrot | julia]\n");
+	ft_printf("Usage: ./fractol [mandelbrot | julia | tricorn]\n");
 	exit(1);
 }
 
@@ -60,9 +60,15 @@ void	parse(char **argv, t_data *id)
 		axis_x(id, -2.1, +1.90);
 		axis_y(id, -2.1, +1.90);
 	}
+	else if (ft_strcmp(argv[1], "tricorn") == 0)
+	{
+		set_model(id, "tricorn");
+		axis_x(id, -2.10, 1.50);
+		axis_y(id, -2, 2);
+	}
 	else
 	{
 		helper();
-		exit(1);
+		exit(FAILURE);
 	}
 }

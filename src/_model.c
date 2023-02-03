@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/03 16:16:25 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/03 17:06:35 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,14 @@ double	mandelbrot(double cr, double ci, double zr, double zi)
 	return (julia(zr, zi, cr, ci));
 }
 
-double	tricorn(double zr, double zi, double cr, double ci)
+double	tricorn(double cr, double ci, double zr, double zi)
 {
 	double	tempi;
 	double	tempr;
 	int		i;
 
+	zr= 0;
+	zi = 0;
 	i = 0;
 	while (zr * zr + zi * zi <= 2 * 2 && i < IMAX)
 	{
