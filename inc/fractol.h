@@ -6,15 +6,15 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 07:48:08 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/03 17:22:31 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/03 20:10:32 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-# define WIDTH  (720)
-# define HEIGHT (720)
+# define WIDTH  (1080)
+# define HEIGHT (1080)
 # define IMAX   (800)
 
 # define FAILURE (1)
@@ -37,11 +37,7 @@ typedef struct s_data {
 	int		bpp;
 	int		len;
 	int		edn;
-	double	r;
-	double	g;
-	double	b;
-	double	color;
-	int		palet;
+	int		hue;
 }			t_data;
 
 /* MODEL */
@@ -52,7 +48,7 @@ double	tricorn(double zr, double zi, double cr, double ci);
 /* VIEW */
 double	trigger(t_data *id, double x, double y);
 void	draw(t_data *img, int x, int y, int color);
-void	render(t_data *id, int color, int bg_color);
+void	render(t_data *id, int x, int y);
 
 /* CONTROLLER */
 void	fractol_init(t_data *id);

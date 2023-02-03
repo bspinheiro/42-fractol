@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/03 17:12:39 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/03 18:58:05 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 void	helper(void)
 {
 	ft_printf("Error! incorrect parameter -- must specify fractol name.\n");
-	ft_printf("Usage: ./fractol [mandelbrot | julia | tricorn]\n");
-	exit(1);
+	ft_printf("Usage: ./fractol [mandelbrot | julia(1..6) | tricorn]\n");
+	exit(FAILURE);
 }
 
 void	normalize(char **argv)

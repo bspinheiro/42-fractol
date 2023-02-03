@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/02 17:45:23 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/03 20:22:39 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	fractol_init(t_data *id)
 void	set_model(t_data *id, char *t)
 {
 	(*id).type = t;
+	(*id).hue = 2;
 }
 
 void	axis_x(t_data *id, double xmin, double xmax)
