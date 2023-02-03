@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/03 11:19:10 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/03 17:16:57 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char **argv)
 		normalize(argv);
 		parse(argv, &img);
 		fractol_init(&img);
-		render(&img, 0x00032AF2);
+		render(&img, 0x00FFFFFF, 0x00FFFFFF);
 		mlx_loop(img.mlx);
 	}
 	else

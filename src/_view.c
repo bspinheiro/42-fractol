@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/03 16:11:53 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/03 17:16:00 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	trgb(int t, int r, int g, int b)
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-int	color(int iteration, int precision, int color)
+int	_color(int iteration, int precision, int color)
 {
 	if (iteration >= precision)
 		return (trgb(0, 0, 0, 0));
@@ -51,11 +51,13 @@ double	trigger(t_data *id, double x, double y)
 		return (mandelbrot(x, y, 0, 0));
 	if (ft_strcmp(id->type, "julia") == 0)
 		return (julia(x, y, -0.8, +0.156));
+	if (ft_strcmp(id->type, "tricorn") == 0)
+		return (tricorn(x, y, 0, 0));
 	else
 		return (0);
 }
 
-void	render(t_data *id, int color)
+void	render(t_data *id, int color, int bg_color)
 {
 	unsigned int	x;
 	unsigned int	y;
@@ -73,7 +75,7 @@ void	render(t_data *id, int color)
 			x0 = id -> xmin + x * (id->xmax - id->xmin) / WIDTH;
 			i = trigger(id, x0, y0);
 			if (i == IMAX)
-				color = 0x00FFFFFF;
+				color = bg_color;
 				//color = 0x00AABBCC - 30 * i;
 			else
 				color = 0x00F0F8FF * i;
