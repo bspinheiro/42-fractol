@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 07:48:08 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/02 19:06:36 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/03 14:09:06 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # define WIDTH  (1920)
 # define HEIGHT (1080)
-# define IMAX   (100)
+# define IMAX   (10)
 
 # include "../lib/libft/inc/libft.h"
 # include "../lib/mlx/mlx.h"

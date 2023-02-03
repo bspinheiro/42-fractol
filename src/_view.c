@@ -6,27 +6,16 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/02 19:24:11 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/03 14:06:59 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
 /* TODO
- ** Seletor de funcao automatico
  ** Excluir color de render
  ** Trabalhar Paleta de cores
 */
-double	delta_x(t_data *id, unsigned int x)
-{
-	return (id -> xmin + x * (id -> xmax - id-> xmin) / WIDTH);
-}
-
-double	delta_y(t_data *id, unsigned int y)
-{
-	return (id -> ymin + y * (id -> ymax - id -> ymin) / HEIGHT);
-}
-
 void	draw(t_data *img, int x, int y, int color)
 {
 	char	*pixel;
@@ -40,25 +29,38 @@ int	trgb(int t, int r, int g, int b)
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-
-double	trigger(t_data *id, double x0, double y0)
+int	make_color(int iteration, int precision, int color)
 {
-		//return (&mandelbrot(delta_x(id, x), delta_y(id, y), 0, 0));
-		//return (&julia(delta_x(id, x), delta_y(id, y), -0.8, +0.156));
+	if (iteration >= precision)
+		return (trgb(0, 0, 0, 0));
+	else if (color == 0)
+		return (trgb(0, 30 * iteration, 30 * iteration,
+				30 * iteration));
+	else if (color == 1)
+		return (trgb(0, 255, 20.5 * iteration, 0));
+	else if (color == 2)
+		return (trgb(0, 0, 20.5 * iteration, 0));
+	else if (color == 3)
+		return (trgb(0, 0, 0, 20.5 * iteration));
+	return (trgb(0, 40.5 * iteration, 20.5 * iteration, 255));
+}
+
+double	fractal(t_data *id, double x0, double y0)
+{
 	if (ft_strcmp(id->type, "mandelbrot") == 0)
 		return (mandelbrot(x0, y0, 0, 0));
-	else if (ft_strcmp(id->type, "julia") == 0)
+	if (ft_strcmp(id->type, "julia") == 0)
 		return (julia(x0, y0, -0.8, +0.156));
 	else
 		return (0);
 }
 
-void	render(t_data *id, int clr)
+void	render(t_data *id, int color)
 {
 	unsigned int	x;
 	unsigned int	y;
-	double	x0;
-	double	y0;
+	double			x0;
+	double			y0;
 	double			i;
 
 	x = 0;
@@ -69,21 +71,18 @@ void	render(t_data *id, int clr)
 		while (x != WIDTH)
 		{
 			x0 = id -> xmin + x * (id->xmax - id->xmin) / WIDTH;
-			/* 
-			if (ft_strcmp(id->type, "mandelbrot") == 0)
-				i = mandelbrot(x0, y0, 0, 0);
-			else if (ft_strcmp(id->type, "julia") == 0)
-				i = julia(x0, y0, -0.8, +0.156);
-				*/
-			i = trigger(id, x0, y0);
+			i = fractal(id, x0, y0);
 			if (i == IMAX)
-				clr = 0x00000000;
+				color = 0x00FFFFFF;
 				//color = 0x00AABBCC - 30 * i;
 			else
-				clr = i * 255 / IMAX;
+				color = 0x00F0F8FF * i;
+				//color = get_color(i, IMAX, 0);
+				//color = i * 255 / IMAX;
+				//color = 0x00F0F8FF * i;
 				//paleta = color(0x00AABBCC) * i * correcao (if int > pot 2;
 				//corr = 1)
-			draw(id, x, y, clr);
+			draw(id, x, y, color);
 			x++;
 		}
 		x = 0;
