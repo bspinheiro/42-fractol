@@ -6,15 +6,18 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/03 17:16:00 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/03 20:25:32 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
 /* TODO
- ** Excluir color de render
- ** Trabalhar Paleta de cores
+ ** Consertar Julia para ficar na tela toda
+ ** Codar outros Julia
+ ** Implementar Eventos
+ ** Rotacionar paleta (id.hue++)
+ ** 
 */
 void	draw(t_data *img, int x, int y, int color)
 {
@@ -24,25 +27,26 @@ void	draw(t_data *img, int x, int y, int color)
 	*(unsigned int *)pixel = color;
 }
 
-int	trgb(int t, int r, int g, int b)
+int	palette(int hue)
 {
-	return (t << 24 | r << 16 | g << 8 | b);
-}
-
-int	_color(int iteration, int precision, int color)
-{
-	if (iteration >= precision)
-		return (trgb(0, 0, 0, 0));
-	else if (color == 0)
-		return (trgb(0, 30 * iteration, 30 * iteration,
-				30 * iteration));
-	else if (color == 1)
-		return (trgb(0, 255, 20.5 * iteration, 0));
-	else if (color == 2)
-		return (trgb(0, 0, 20.5 * iteration, 0));
-	else if (color == 3)
-		return (trgb(0, 0, 0, 20.5 * iteration));
-	return (trgb(0, 40.5 * iteration, 20.5 * iteration, 255));
+	if (hue == 0)
+		return (1);
+	if (hue == 1)
+		return (256);
+	if (hue == 2)
+		return (0x00F0F8FF);
+	if (hue == 3)
+		return (0x00E8C3E2);
+	if (hue == 4)
+		return (0x00E8DAC3);
+	if (hue == 5)
+		return (0x00D5E8CF);
+	if (hue == 6)
+		return (0x00E8C3F8);
+	if (hue == 7)
+		return (0x00E8E3DA);
+	else
+		return (0x00FFFFFF);
 }
 
 double	trigger(t_data *id, double x, double y)
@@ -50,23 +54,20 @@ double	trigger(t_data *id, double x, double y)
 	if (ft_strcmp(id->type, "mandelbrot") == 0)
 		return (mandelbrot(x, y, 0, 0));
 	if (ft_strcmp(id->type, "julia") == 0)
-		return (julia(x, y, -0.8, +0.156));
+		return (julia(x, y, -0.8, +0.156)); //-0.8 +0.156; -0.4 +0.6; 
 	if (ft_strcmp(id->type, "tricorn") == 0)
 		return (tricorn(x, y, 0, 0));
 	else
 		return (0);
 }
 
-void	render(t_data *id, int color, int bg_color)
+void	render(t_data *id, int x, int y)
 {
-	unsigned int	x;
-	unsigned int	y;
-	double			x0;
-	double			y0;
-	double			i;
+	double	x0;
+	double	y0;
+	double	i;
+	int		color;
 
-	x = 0;
-	y = 0;
 	while (y != HEIGHT)
 	{
 		y0 = id -> ymin + y * (id-> ymax - id->ymin) / HEIGHT;
@@ -75,15 +76,9 @@ void	render(t_data *id, int color, int bg_color)
 			x0 = id -> xmin + x * (id->xmax - id->xmin) / WIDTH;
 			i = trigger(id, x0, y0);
 			if (i == IMAX)
-				color = bg_color;
-				//color = 0x00AABBCC - 30 * i;
+				color = 0x00000000;
 			else
-				color = 0x00F0F8FF * i;
-				//color = get_color(i, IMAX, 0);
-				//color = i * 255 / IMAX;
-				//color = 0x00F0F8FF * i;
-				//paleta = color(0x00AABBCC) * i * correcao (if int > pot 2;
-				//corr = 1)
+				color = i * palette(id->hue);
 			draw(id, x, y, color);
 			x++;
 		}
