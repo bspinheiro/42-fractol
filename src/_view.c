@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/03 14:06:59 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/03 16:11:53 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	trgb(int t, int r, int g, int b)
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-int	make_color(int iteration, int precision, int color)
+int	color(int iteration, int precision, int color)
 {
 	if (iteration >= precision)
 		return (trgb(0, 0, 0, 0));
@@ -45,12 +45,12 @@ int	make_color(int iteration, int precision, int color)
 	return (trgb(0, 40.5 * iteration, 20.5 * iteration, 255));
 }
 
-double	fractal(t_data *id, double x0, double y0)
+double	trigger(t_data *id, double x, double y)
 {
 	if (ft_strcmp(id->type, "mandelbrot") == 0)
-		return (mandelbrot(x0, y0, 0, 0));
+		return (mandelbrot(x, y, 0, 0));
 	if (ft_strcmp(id->type, "julia") == 0)
-		return (julia(x0, y0, -0.8, +0.156));
+		return (julia(x, y, -0.8, +0.156));
 	else
 		return (0);
 }
@@ -71,7 +71,7 @@ void	render(t_data *id, int color)
 		while (x != WIDTH)
 		{
 			x0 = id -> xmin + x * (id->xmax - id->xmin) / WIDTH;
-			i = fractal(id, x0, y0);
+			i = trigger(id, x0, y0);
 			if (i == IMAX)
 				color = 0x00FFFFFF;
 				//color = 0x00AABBCC - 30 * i;
