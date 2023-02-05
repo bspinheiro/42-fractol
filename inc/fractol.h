@@ -6,14 +6,14 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 07:48:08 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/03 20:10:32 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/05 10:19:04 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-# define WIDTH  (1080)
+# define WIDTH  (1920)
 # define HEIGHT (1080)
 # define IMAX   (800)
 

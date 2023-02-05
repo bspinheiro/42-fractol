@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/03 20:25:32 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/05 10:24:25 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,21 @@ void	draw(t_data *img, int x, int y, int color)
 int	palette(int hue)
 {
 	if (hue == 0)
-		return (1);
-	if (hue == 1)
-		return (256);
-	if (hue == 2)
 		return (0x00F0F8FF);
-	if (hue == 3)
+	if (hue == 1)
 		return (0x00E8C3E2);
-	if (hue == 4)
+	if (hue == 2)
 		return (0x00E8DAC3);
-	if (hue == 5)
+	if (hue == 3)
 		return (0x00D5E8CF);
-	if (hue == 6)
+	if (hue == 4)
 		return (0x00E8C3F8);
-	if (hue == 7)
+	if (hue == 5)
 		return (0x00E8E3DA);
+	if (hue == 6)
+		return (1);
+	if (hue == 7)
+		return (256);
 	else
 		return (0x00FFFFFF);
 }
@@ -54,7 +54,7 @@ double	trigger(t_data *id, double x, double y)
 	if (ft_strcmp(id->type, "mandelbrot") == 0)
 		return (mandelbrot(x, y, 0, 0));
 	if (ft_strcmp(id->type, "julia") == 0)
-		return (julia(x, y, -0.8, +0.156)); //-0.8 +0.156; -0.4 +0.6; 
+		return (julia(x, y, -0.8, +0.156)); //-0.8 +0.156; -0.4 +0.6;
 	if (ft_strcmp(id->type, "tricorn") == 0)
 		return (tricorn(x, y, 0, 0));
 	else
@@ -76,7 +76,7 @@ void	render(t_data *id, int x, int y)
 			x0 = id -> xmin + x * (id->xmax - id->xmin) / WIDTH;
 			i = trigger(id, x0, y0);
 			if (i == IMAX)
-				color = 0x00000000;
+				color = 0x00FFFFFF;
 			else
 				color = i * palette(id->hue);
 			draw(id, x, y, color);
