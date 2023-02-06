@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/05 12:35:30 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/06 13:59:03 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,12 @@ void	fractol_init(t_data *id)
 	(*id).adr = mlx_get_data_addr(id->ptr, &id->bpp, &id->len, &id->edn);
 }
 
-void	set_model(t_data *id, char *t)
+void	set_model(t_data *id, char *t, double x, double y)
 {
 	(*id).type = t;
 	(*id).hue = 0;
+	axis_x(id, -x, x);
+	axis_y(id, -y, y);
 }
 
 void	axis_x(t_data *id, double xmin, double xmax)

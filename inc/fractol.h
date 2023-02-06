@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 07:48:08 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/06 01:03:35 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/06 13:52:55 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ typedef struct s_data {
 	int		len;
 	int		edn;
 	int		hue;
-	int		rst;
 }			t_data;
 
 /* MODEL */
@@ -55,7 +54,7 @@ void	render(t_data *id, int x, int y);
 
 /* CONTROLLER */
 void	fractol_init(t_data *id);
-void	set_model(t_data *id, char *t);
+void	set_model(t_data *id, char *t, double x, double y);
 void	axis_x(t_data *id, double xmin, double xmax);
 void	axis_y(t_data *id, double ymin, double ymax);
 

@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/06 00:49:25 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/06 13:59:48 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,41 +48,24 @@ void	normalize(char **argv)
 
 void	parse(char **argv, t_data *id)
 {
-	if (ft_strcmp(argv[1], "mandelbrot") == 0)
-	{
-		set_model(id, "mandelbrot");
-		axis_x(id, -2.00, +0.47);
-		axis_y(id, -1.12, +1.12);
-	}
-	else if (ft_strcmp(argv[1], "julia1") == 0)
-	{
-		set_model(id, "julia1");
-		axis_x(id, -1.1, +1.1);
-		axis_y(id, -1.1, +1.1);
-	}
+	if (ft_strcmp(argv[1], "julia1") == 0)
+		set_model(id, "julia1", 1.1, 1.1);
 	else if (ft_strcmp(argv[1], "julia2") == 0)
-	{
-		set_model(id, "julia2");
-		axis_x(id, -1.0, +1.0);
-		axis_y(id, -1.1, +1.1);
-	}
+		set_model(id, "julia2", 1.0, 1.1);
 	else if (ft_strcmp(argv[1], "julia3") == 0)
+		set_model(id, "julia3", 2.1, 1.90);
+	else if (ft_strcmp(argv[1], "mandelbrot") == 0)
 	{
-		set_model(id, "julia3");
-		axis_x(id, -2.1, +1.90);
-		axis_y(id, -2.1, +1.90);
+		set_model(id, "mandelbrot", 1.1, 1.12);
+		axis_x(id, -2.00, +0.47);
 	}
 	else if (ft_strcmp(argv[1], "tricorn") == 0)
 	{
-		set_model(id, "tricorn");
+		set_model(id, "tricorn", 2, 2);
 		axis_x(id, -2.10, 1.50);
-		axis_y(id, -2, 2);
 	}
 	else
-	{
 		helper();
-		exit(FAILURE);
-	}
 }
 
 double	trigger(t_data *id, double x, double y)
