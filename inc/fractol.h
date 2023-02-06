@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 07:48:08 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/06 13:52:55 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/06 18:15:30 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include "../lib/libft/inc/libft.h"
 # include "../lib/mlx/mlx.h"
 # include "colors.h"
+# include "ansi.h"
 # include <math.h>
 
 typedef struct s_data {
@@ -54,6 +55,7 @@ void	render(t_data *id, int x, int y);
 
 /* CONTROLLER */
 void	fractol_init(t_data *id);
+int		fractol_quit(t_data *id);
 void	set_model(t_data *id, char *t, double x, double y);
 void	axis_x(t_data *id, double xmin, double xmax);
 void	axis_y(t_data *id, double ymin, double ymax);
@@ -63,5 +65,6 @@ void	helper(void);
 void	normalize(char **argv);
 void	parse(char **argv, t_data *id);
 double	trigger(t_data *id, double x, double y);
+//int		events(t_data *id);
 
 #endif

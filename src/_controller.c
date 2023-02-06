@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/06 13:59:03 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/06 18:12:10 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,11 @@ void	axis_y(t_data *id, double ymin, double ymax)
 {
 	(*id).ymin = ymin;
 	(*id).ymax = ymax;
+}
+
+int	fractol_quit(t_data *id)
+{
+	mlx_destroy_window(id->mlx, id->win);
+	exit(SUCCESS);
+	return (0);
 }
