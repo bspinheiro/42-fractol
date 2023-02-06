@@ -6,22 +6,23 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 07:48:08 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/03 20:10:32 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/06 01:03:35 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-# define WIDTH  (1080)
+# define WIDTH  (1920)
 # define HEIGHT (1080)
-# define IMAX   (800)
+# define IMAX   (100)
 
 # define FAILURE (1)
 # define SUCCESS (0)
-#
+
 # include "../lib/libft/inc/libft.h"
 # include "../lib/mlx/mlx.h"
+# include "colors.h"
 # include <math.h>
 
 typedef struct s_data {
@@ -38,6 +39,7 @@ typedef struct s_data {
 	int		len;
 	int		edn;
 	int		hue;
+	int		rst;
 }			t_data;
 
 /* MODEL */
@@ -46,7 +48,8 @@ double	julia(double zr, double zi, double cr, double ci);
 double	tricorn(double zr, double zi, double cr, double ci);
 
 /* VIEW */
-double	trigger(t_data *id, double x, double y);
+int		palette(int hue);
+int		background(int hue);
 void	draw(t_data *img, int x, int y, int color);
 void	render(t_data *id, int x, int y);
 
@@ -60,5 +63,6 @@ void	axis_y(t_data *id, double ymin, double ymax);
 void	helper(void);
 void	normalize(char **argv);
 void	parse(char **argv, t_data *id);
+double	trigger(t_data *id, double x, double y);
 
 #endif
