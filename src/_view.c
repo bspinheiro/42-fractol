@@ -6,17 +6,16 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/05 12:36:49 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/06 01:09:30 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
 /* TODO
- ** Codar outros Julia
  ** Implementar Eventos
  ** Rotacionar paleta (id.hue++)
- ** 
+ ** Iniciar com zoom focado julia2, 3 e tricorn
 */
 void	draw(t_data *img, int x, int y, int color)
 {
@@ -48,6 +47,28 @@ int	palette(int hue)
 		return (COLOR_8);
 }
 
+int	background(int hue)
+{
+	if (hue == 0)
+		return (BG_0);
+	if (hue == 1)
+		return (BG_1);
+	if (hue == 2)
+		return (BG_2);
+	if (hue == 3)
+		return (BG_3);
+	if (hue == 4)
+		return (BG_4);
+	if (hue == 5)
+		return (BG_5);
+	if (hue == 6)
+		return (BG_6);
+	if (hue == 7)
+		return (BG_7);
+	else
+		return (BG_8);
+}
+
 void	render(t_data *id, int x, int y)
 {
 	double	x0;
@@ -63,9 +84,9 @@ void	render(t_data *id, int x, int y)
 			x0 = id -> xmin + x * (id->xmax - id->xmin) / WIDTH;
 			i = trigger(id, x0, y0);
 			if (i == IMAX)
-				color = BG_BLACK;
+				color = background(id->hue);
 			else
-				color = i * palette(id->hue);
+				color = palette(id->hue) * i;;
 			draw(id, x, y, color);
 			x++;
 		}

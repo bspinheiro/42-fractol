@@ -6,16 +6,16 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 07:48:08 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/05 12:25:14 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/06 01:03:35 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-# define WIDTH  (1080)
+# define WIDTH  (1920)
 # define HEIGHT (1080)
-# define IMAX   (800)
+# define IMAX   (100)
 
 # define FAILURE (1)
 # define SUCCESS (0)
@@ -39,6 +39,7 @@ typedef struct s_data {
 	int		len;
 	int		edn;
 	int		hue;
+	int		rst;
 }			t_data;
 
 /* MODEL */
@@ -48,6 +49,7 @@ double	tricorn(double zr, double zi, double cr, double ci);
 
 /* VIEW */
 int		palette(int hue);
+int		background(int hue);
 void	draw(t_data *img, int x, int y, int color);
 void	render(t_data *id, int x, int y);
 
