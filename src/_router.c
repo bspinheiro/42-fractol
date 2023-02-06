@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/03 18:58:05 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/05 12:24:06 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ void	parse(char **argv, t_data *id)
 		axis_x(id, -2.00, +0.47);
 		axis_y(id, -1.12, +1.12);
 	}
-	else if (ft_strcmp(argv[1], "julia") == 0)
+	if (ft_strcmp(argv[1], "julia") == 0)
 	{
 		set_model(id, "julia");
 		axis_x(id, -2.1, +1.90);
 		axis_y(id, -2.1, +1.90);
 	}
-	else if (ft_strcmp(argv[1], "tricorn") == 0)
+	if (ft_strcmp(argv[1], "tricorn") == 0)
 	{
 		set_model(id, "tricorn");
 		axis_x(id, -2.10, 1.50);
@@ -71,4 +71,16 @@ void	parse(char **argv, t_data *id)
 		helper();
 		exit(FAILURE);
 	}
+}
+
+double	trigger(t_data *id, double x, double y)
+{
+	if (ft_strcmp(id->type, "mandelbrot") == 0)
+		return (mandelbrot(x, y, 0, 0));
+	if (ft_strcmp(id->type, "julia") == 0)
+		return (julia(x, y, -0.8, +0.156)); //-0.8 +0.156; -0.4 +0.6;
+	if (ft_strcmp(id->type, "tricorn") == 0)
+		return (tricorn(x, y, 0, 0));
+	else
+		return (0);
 }

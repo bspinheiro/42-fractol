@@ -6,16 +6,13 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/03 17:27:13 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/05 12:12:19 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
 /* TODO
- ** Usar função
- ** Implemntar Tricorn
- ** Tricorn? tempi = -2 * zr ...
 */
 
 double	julia(double zr, double zi, double cr, double ci)
