@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/06 08:38:46 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/06 20:09:26 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void	render(t_data *id, int x, int y)
 	double	i;
 	int		color;
 
+	y0 = 0;
+	x0 = 0;
 	while (y != HEIGHT)
 	{
 		y0 = id -> ymin + y * (id-> ymax - id->ymin) / HEIGHT;
@@ -84,7 +86,7 @@ void	render(t_data *id, int x, int y)
 			x0 = id -> xmin + x * (id->xmax - id->xmin) / WIDTH;
 			i = trigger(id, x0, y0);
 			if (i == IMAX)
-				color = background(id->hue);
+				color = 0x00000000;
 			else
 				color = palette(id->hue) * i;
 			draw(id, x, y, color);
