@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/06 20:31:50 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/07 19:33:23 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,19 @@
 
 int	main(int argc, char **argv)
 {
-	t_data	img;
+	t_data	id;
 
 	if (argc == 2)
 	{
 		argc = argc * 1;
 		normalize(argv);
-		parse(argv, &img);
-		fractol_init(&img);
-		render(&img, 0, 0);
-		mlx_hook(img.win, WIN_CLOSE, 0, &fractol_quit, &img);
-		mlx_key_hook(img.win, &key_events, &img);
-		mlx_mouse_hook(img.win, &mouse_events, &img);
-		mlx_loop(img.mlx);
+		parse(argv, &id);
+		fractol_init(&id);
+		render(&id, 0, 0);
+		mlx_hook(id.win, WIN_CLOSE, 0, &fractol_quit, &id);
+		mlx_key_hook(id.win, &key_events, &id);
+		mlx_mouse_hook(id.win, &mouse_events, &id);
+		mlx_loop(id.mlx);
 	}
 	else
 		helper();
