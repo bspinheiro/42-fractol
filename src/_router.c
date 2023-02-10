@@ -6,18 +6,12 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/06 13:59:48 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/09 16:28:11 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-/*
- ** TODO
- ** - Incluir ft_normalize() na libft
- ** - ft_strcmp com strlen(s2)
- ** - saída com errorlevel para helper();
-*/
 void	helper(void)
 {
 	ft_printf("Error! incorrect parameter -- must specify fractol name.\n");

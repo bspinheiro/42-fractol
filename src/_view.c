@@ -6,17 +6,12 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/07 19:34:20 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/09 16:27:52 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-/* TODO
- ** Implementar Eventos
- ** Rotacionar paleta (id.hue++)
- ** Iniciar com zoom focado julia2, 3 e tricorn
-*/
 void	draw(t_data *img, int x, int y, int color)
 {
 	char	*pixel;
