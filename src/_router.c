@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/09 16:28:11 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/10 13:00:27 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	normalize(char **argv)
 
 void	parse(char **argv, t_data *id)
 {
+	id->argv = argv;
 	if (ft_strcmp(argv[1], "julia1") == 0)
 		set_model(id, "julia1", 1.1, 1.1);
 	else if (ft_strcmp(argv[1], "julia2") == 0)

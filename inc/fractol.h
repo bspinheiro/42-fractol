@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 07:48:08 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/10 08:43:27 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/10 12:58:52 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <math.h>
 
 typedef struct s_data {
+	char	**argv;
 	char	*type;
 	double	xmin;
 	double	xmax;
@@ -41,7 +42,7 @@ double	tricorn(double zr, double zi, double cr, double ci);
 
 /* VIEW */
 int		palette(int hue);
-int		background(int hue);
+void	change_palette(t_data *id);
 void	draw(t_data *img, int x, int y, int color);
 void	render(t_data *id, int x, int y);
 
@@ -61,5 +62,6 @@ double	trigger(t_data *id, double x, double y);
 /* EVENTS */
 int		key_events(int keycode, t_data *id);
 int		mouse_events(int key, int x, int y, t_data *id);
-
+void	on_keypress_move(char c, int s, t_data *id);
+void	on_mouse_scroll(double zoom, int x, int y, t_data *id);
 #endif

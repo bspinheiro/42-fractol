@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/09 16:27:52 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/10 12:37:43 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@ void	draw(t_data *img, int x, int y, int color)
 
 	pixel = (*img).adr + (y * (*img).len + x * ((*img).bpp / 8));
 	*(unsigned int *)pixel = color;
+}
+
+void	change_palette(t_data *id)
+{
+	id->hue += 1;
+	if (id->hue == 9)
+		id->hue = 0;
 }
 
 int	palette(int hue)
@@ -42,28 +49,6 @@ int	palette(int hue)
 		return (COLOR_8);
 }
 
-int	background(int hue)
-{
-	if (hue == 0)
-		return (BG_0);
-	if (hue == 1)
-		return (BG_1);
-	if (hue == 2)
-		return (BG_2);
-	if (hue == 3)
-		return (BG_3);
-	if (hue == 4)
-		return (BG_4);
-	if (hue == 5)
-		return (BG_5);
-	if (hue == 6)
-		return (BG_6);
-	if (hue == 7)
-		return (BG_7);
-	else
-		return (BG_8);
-}
-
 void	render(t_data *id, int x, int y)
 {
 	double	x0;
@@ -81,7 +66,7 @@ void	render(t_data *id, int x, int y)
 			x0 = id->xmin + x * (id->xmax - id->xmin) / WIDTH;
 			i = trigger(id, x0, y0);
 			if (i == IMAX)
-				color = background(id->hue);
+				color = BACKGRD;
 			else
 				color = palette(id->hue) * i;
 			draw(id, x, y, color);

@@ -6,85 +6,72 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/10 08:46:40 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/10 13:01:32 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	on_key_press_move_add(double max, double min)
+void	on_keypress_move(char c, int s, t_data *id)
 {
-	double	mid;
-
-	mid = 0;
-	mid = max - min;
-	max += mid * KEY_SPEED;
-	min += mid * KEY_SPEED;
+	c = ft_tolower(c);
+	if (c == 'x')
+	{
+		id->xmax = id->xmax + (s * (id->xmax - id->xmin) * KEY_SPEED);
+		id->xmin = id->xmin + (s * (id->xmax - id->xmin) * KEY_SPEED);
+	}
+	else if (c == 'y')
+	{
+		id->ymax = id->ymax + (s *(id->ymax - id->ymin) * KEY_SPEED);
+		id->ymin = id->ymin + (s *(id->ymax - id->ymin) * KEY_SPEED);
+	}
 }
 
 int	key_events(int key, t_data *id)
 {
-	double	mid_x;
-	double	mid_y;
-
-	mid_x = id->xmax - id->xmin;
-	mid_y = id->ymax - id->ymin;
 	if (key == ESC)
 		fractol_quit(id);
 	if (key == LEFT)
-	{
-		id->xmax += mid_x * KEY_SPEED;
-		id->xmin += mid_x * KEY_SPEED;
-	}
+		on_keypress_move('x', +1, id);
 	if (key == RIGHT)
-	{
-		id->xmax -= mid_x * KEY_SPEED;
-		id->xmin -= mid_x * KEY_SPEED;
-	}
+		on_keypress_move('x', -1, id);
 	if (key == UP)
-	{
-		id->ymax += mid_y * KEY_SPEED;
-		id->ymin += mid_y * KEY_SPEED;
-	}
+		on_keypress_move('y', +1, id);
 	if (key == DOWN)
-	{
-		id->ymax -= mid_y * KEY_SPEED;
-		id->ymin -= mid_y * KEY_SPEED;
-	}
+		on_keypress_move('y', -1, id);
 	mlx_clear_window(id, id->win);
 	render(id, 0, 0);
 	return (0);
 }
 
-int	mouse_events(int key, int x, int y, t_data *id)
+void	on_mouse_scroll(double zoom, int x, int y, t_data *id)
 {
 	double	x0;
 	double	y0;
 
 	y0 = id->ymin + y * (id->ymax - id->ymin) / HEIGHT;
 	x0 = id->xmin + x * (id->xmax - id->xmin) / WIDTH;
+	id->xmax = x0 + ((id->xmax - x0) * zoom);
+	id->xmin = x0 + ((id->xmin - x0) * zoom);
+	id->ymax = y0 + ((id->ymax - y0) * zoom);
+	id->ymin = y0 + ((id->ymin - y0) * zoom);
+}
+
+void	on_mouse_click_reset(t_data *id)
+{
+	parse(id->argv, id);
+}
+
+int	mouse_events(int key, int x, int y, t_data *id)
+{
 	if (key == 1)
-	{
-		id->hue += 1;
-		if (id->hue == 9)
-			id->hue = 0;
-	}
+		change_palette(id);
 	if (key == 2)
-		render(id, 0, 0);
+		on_mouse_click_reset(id);
 	if (key == 4)
-	{
-		id->xmax = x0 + ((id->xmax - x0) * ZOOM_OUT);
-		id->xmin = x0 + ((id->xmin - x0) * ZOOM_OUT);
-		id->ymax = y0 + ((id->ymax - y0) * ZOOM_OUT);
-		id->ymin = y0 + ((id->ymin - y0) * ZOOM_OUT);
-	}
+		on_mouse_scroll(ZOOM_OUT, x, y, id);
 	if (key == 5)
-	{
-		id->xmax = x0 + ((id->xmax - x0) * ZOOM_IN);
-		id->xmin = x0 + ((id->xmin - x0) * ZOOM_IN);
-		id->ymax = y0 + ((id->ymax - y0) * ZOOM_IN);
-		id->ymin = y0 + ((id->ymin - y0) * ZOOM_IN);
-	}
+		on_mouse_scroll(ZOOM_IN, x, y, id);
 	mlx_clear_window(id, id->win);
 	render(id, 0, 0);
 	return (0);
