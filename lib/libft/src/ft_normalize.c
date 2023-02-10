@@ -1,18 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_normalize.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/10 12:21:37 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/10 14:56:58 by bda-silv         ###   ########.fr       */
+/*   Created: 2023/02/10 15:09:43 by bda-silv          #+#    #+#             */
+/*   Updated: 2023/02/10 19:39:05 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+/*
+ ** ft_normalize:
+ ** 	Streamline lowercase argv inputs
+*/
+
+void	ft_normalize(char **argv)
 {
-	return (ft_strncmp(s1, s2, ft_strlen(s2)));
+	int	i;
+	int	p;
+
+	p = 0;
+	while (argv[++p])
+		;
+	p = p - 1;
+	while (p != 0)
+	{
+		i = 0;
+		while (argv[p][i])
+		{
+			argv[p][i] = ft_tolower(argv[p][i]);
+			i++;
+		}
+		p--;
+	}
 }

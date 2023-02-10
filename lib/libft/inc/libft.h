@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 10:37:45 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/01/04 00:42:11 by marvin           ###   ########.fr       */
+/*   Updated: 2023/02/10 15:39:21 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ void			ft_putendl_fd(char *s, int fd);
 void			ft_putnbr_fd(int n, int fd);
 void			ft_puts(char *s);
 void			ft_striteri(char *s, void (*f)(unsigned int, char*));
+void			ft_normalize(char **argv);
 
 #endif

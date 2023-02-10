@@ -5,55 +5,103 @@
 #                                                     +:+ +:+         +:+      #
 #    By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/10/24 16:48:08 by bda-silv          #+#    #+#              #
-#*   Updated: 2023/02/06 20:00:22 by                  ###   ########.fr       *#
+#    Created: 2023/02/10 18:24:14 by bda-silv          #+#    #+#              #
+#*   Updated: 2023/02/10 19:43:19 by                  ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
+
+PROJ      := fractol
+NAMES     := ${PROJ}
+
+# **************************************************************************** #
+#                          Config and Folders
+# **************************************************************************** #
+
+SRC_ROOT  := src/
+INC_ROOT  := inc/
+LIB_ROOT  := lib/
+OBJ_ROOT  := obj/
+BIN_ROOT  := ./
+
+VERBOSE   := 1
+
+# Verbose levels
+# 0: Make will be totaly silenced
+# 1: Make will print echos and printf
+# 2: Make will not be silenced but target commands will not be printed
+# 3: Make will print each command
+# 4: Make will print all debug info
 #
-#.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*. SPECS .*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.
+# If no value is specified or an incorrect value is given make will print each
+# command like if VERBOSE was set to 3.
 
-PROJ				=	fractol
+# **************************************************************************** #
+#                          Compiler and Flags
+# **************************************************************************** #
 
-SRCS_DIR			=	src/
-OBJS_DIR			=	obj/
-INCS_DIR			=	inc/
-LIBS_DIR			=	lib/
+CC        := cc
+CLIB      := ar -rc
 
-#.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*. SETUP .*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.
+CFLAGS    := -Wall -Wextra -Werror
+DFLAGS    := -g
+OFLAGS    := -O3
+FSANITIZE := -fsanitize=address
 
-LIBFT				=	$(addprefix $(LIBS_DIR), libft)
+# **************************************************************************** #
+#                           Content Folders
+# **************************************************************************** #
 
-LIBS_NAME			=	$(shell cd $(LIBS_DIR); ls -d $(ls)/ | grep -E "")
-LIBS_PATH			=	$(addprefix $(LIBS_DIR:.=), $(LIBS_NAME))
-LIBS_				=	$(join $(LIBS_PATH),$(LIBS_NAME:/=))					# Check LIBS populating
-LIBS				=	$(addsuffix .a, $(LIBS_))
+SRC_DIRS_LIST := ${SRC_ROOT}
+SRC_DIRS_LIST := $(foreach dl,${SRC_DIRS_LIST},$(subst :,:${SRC_ROOT},${dl}))
 
-SRCS_NAME			=	$(shell ls $(SRCS_DIR) | grep -E ".+\.c")
-SRCS				=	$(addprefix $(SRCS_DIR), $(SRCS_NAME))
-OBJS				=	$(addprefix $(OBJS_DIR), $(SRCS_NAME:.c=.o))
+SRC_DIRS = $(subst :,${SPACE},${SRC_DIRS_LIST})
+OBJ_DIRS = $(subst ${SRC_ROOT},${OBJ_ROOT},${SRC_DIRS})
 
-SRC					=	$(SRCS_NAME:.c=)
-NAME				=	$(SRC)
+INC_DIRS = ${INC_ROOT}
 
-CC					=	cc
-CFLAGS				=	-Wall -Wextra -Werror
+# **************************************************************************** #
+#                                Files
+# **************************************************************************** #
 
-MD					=	mkdir -p
-AR					=	ar -rcs
-RL					=	ranlib
-RM					=	rm -rf
+SRCS_LIST = $(foreach dl,${SRC_DIRS_LIST},$(subst ${SPACE},:,$(strip $(foreach\
+	dir,$(subst :,${SPACE},${dl}),$(wildcard ${dir}*.c)))))
+OBJS_LIST = $(subst ${SRC_ROOT},${OBJ_ROOT},$(subst .c,.o,${SRCS_LIST}))
 
-#.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*. ROUTE .*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.
-detected_OS	:=	$(shell uname)
+SRCS = $(foreach dir,${SRC_DIRS},$(wildcard ${dir}*.c))
+OBJS = $(subst ${SRC_ROOT},${OBJ_ROOT},${SRCS:.c=.o})
 
-ifeq ($(detected_OS), Darwin)
-  MLX		=	$(addprefix $(LIBS_DIR), mlx)
-  OCFLAGS	=	$(CFLAGS) -g -L $(MLX) -lm -lmlx -framework OpenGL -framework AppKit
-else
-  MLX		=	$(addprefix $(LIBS_DIR), mlx_linux)
-  OCFLAGS	=	$(CFLAGS) -L $(MLX) -lmlx_linux -L/usr/lib -Imlx_linux -lXext \
--lX1 -lm -lz1
+INCS := ${addprefix -I,${INC_DIRS}}
+INCS += -I${LIB_ROOT}libft
+
+# **************************************************************************** #
+#                               VPATHS
+# **************************************************************************** #
+
+vpath %.o ${OBJ_ROOT}
+vpath %.h ${INC_ROOT}
+vpath %.c ${SRC_DIRS}
+
+# **************************************************************************** #
+#                             OS Check
+# **************************************************************************** #
+
+detected_OS := $(shell uname)
+
+ifeq ($(detected_OS), Linux)
+	MLX = mlx_linux
+	MLX_FLAGS = -lbsd -L${LIB_ROOT}${MLX} -lmlx -lXext -lX11 -lm
+	CFLAGS += -DOS=1
+else ifeq ($(detected_OS), Darwin)
+	MLX = mlx_darwin
+	MLX_FLAGS = -I${LIB_ROOT}${MLX} -L${LIB_ROOT}${MLX} -lm -lmlx -framework \
+				OpenGL -framework AppKit
+	CFLAGS += -DOS=2
 endif
+
+# **************************************************************************** #
+#                          Command Line Parser
+# **************************************************************************** #
+
 ifeq (run,$(firstword $(MAKECMDGOALS)))
   RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
   $(eval $(RUN_ARGS):;@:)
@@ -70,65 +118,53 @@ ifndef FLDR
  FLDR = $(shell echo $(PWD) | rev | cut -d'/' -f1 | rev)
 endif
 
-#.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*. RULES .*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.
+# **************************************************************************** #
+#                         Mandatory Targets
+# **************************************************************************** #
 
-all : $(OBJS_DIR) $(NAME)
+.PHONY: all
+all: ${NAMES}
 
-$(OBJS_DIR) :
-	$(MD) $(OBJS_DIR)
+${PROJ}: ${OBJS}
+	${AT} ${MAKE} -C ${LIB_ROOT}libft ${BLOCK}
+	${AT} ${MAKE} -C ${LIB_ROOT}${MLX} ${BLOCK}
+	${AT} ${CC} ${CFLAGS} ${OFLAGS} ${INCS}  ${OBJS} ${MLX_FLAGS} \
+		${LIB_ROOT}libft/libft.a -o $@ ${BLOCK}
+	${AT}echo "${_OK}$(grn)${@F}$(rst)" ${BLOCK}
 
-$(OBJS_DIR)%.o : $(SRCS_DIR)%.c
-	@echo "$(ora)$(ck)	Creating		$@$(rst)"
-	$(CC) $(CFLAGS) -I$(INCS_DIR) -o $@ -c $<
+# **************************************************************************** #
+#                         Clean Targets
+# **************************************************************************** #
+.PHONY: clean
+clean:
+	${AT}mkdir -p ${OBJ_ROOT} ${BLOCK}
+	${AT}find ${OBJ_ROOT} -type f -delete ${BLOCK}
+	${AT} ${MAKE} fclean -C ${LIB_ROOT}libft ${BLOCK}
+	${AT} ${MAKE} clean -C ${LIB_ROOT}${MLX} ${BLOCK}
+	${AT} rm -f libmlx.dylib ${BLOCK}
+	${AT}echo "$(_KO)$(red)${OBJ_ROOT}$(rst)" ${BLOCK}
 
-libft:
-	$(MAKE) -C $(LIBFT)
+.PHONY: fclean
+fclean: clean
+	${AT}rm -f ${NAMES} ${BLOCK}
+	${AT}echo "$(_KO)$(red)${NAMES}$(rst)" ${BLOCK}
 
-mlx:
-	$(MAKE) -C $(MLX)
+.PHONY: re
+re: fclean all
 
-show: 																			# Show Variables
-	echo LIBS_NAME: $(LIBS_NAME)
-	echo LIBS_PATH: $(LIBS_PATH)
-	echo LIBS_: $(LIBS_)
-	echo LIBS : $(LIBS)
-	echo OBJS: $(OBJS)
-	echo SRC: $(SRC) $(OCFLAGS)
-	echo LIBX: $(OCFLAGS)
+# **************************************************************************** #
+#         Debug,  Run, Leaks, Ready,  gitIgnore, Boilerplate and Help
+# **************************************************************************** #
 
-$(LIBS) :																		# NOT WORKING
-	$(MAKE) -C $(LIBS)
+debug: CFLAGS += ${DFLAGS} ${FSANITIZE}
+debug:
+	@echo "$(pnk)"
+	lldb $(RUN_ARGS)
 
-$(NAME) : $(OBJS) libft mlx														# Quick Fix
-	-$(CC) $(OBJS) $(LIBFT)/libft.a $(OCFLAGS) -o $@							# Quick Fix
-	@echo "$(grn)$(ok)	Compiled		$@$(rst)"
-	$(RM) _$(ls)
-
-clean :
-	$(MAKE) $@ -C $(LIBFT)
-	$(MAKE) $@ -C $(MLX)
-	$(RM) $(OBJS_DIR)
-	@echo "$(red)$(ko)	Removing		$(OBJS_DIR)$(rst)"
-
-fclean :
-	$(MAKE) $@ -C $(LIBFT)
-	$(MAKE) $@ -C $(MLX)
-	$(RM) $(SRC) $(OBJS_DIR)
-	@echo "$(red)$(ko)	Removing		$(SRC)$(rst)"
-
-re : fclean all
-
-norm :
-	@echo "$(pnk)\c"; \
-	norminette | grep "Error" || echo "$(grn)$(ok)	Norminette		OK!"
 
 run : all
 	@echo "$(grn)$(ok)	Running			$(RUN_ARGS)$(rst)\n"
 	./$(RUN_ARGS); echo "$(rst)"
-
-debug :
-	@echo "$(pnk)"
-	lldb $(RUN_ARGS)
 
 leaks :
 	valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes \
@@ -178,18 +214,54 @@ rainbow :
 
 .PHONY : all clean fclean re norm gig run debug leaks ready rainbow boilerplate
 
-#.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*. VERBOSE .*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.
 
-ifdef VERBOSE
- MAKEFLAGS += --debug
+# **************************************************************************** #
+#                           Norminette
+# **************************************************************************** #
+
+.PHONY: norm
+norm:
+	${AT} echo "$(pnk)\c"; \
+	norminette ${SRCS} ${INC_ROOT} | grep "Error" || \
+	echo "$(grn)$(ok)	Norminette		OK!" ${BLOCK}
+
+# **************************************************************************** #
+#                        Target Templates
+# **************************************************************************** #
+
+define make_obj
+${1} : ${2}
+	$${AT}mkdir -p $${@D} $${BLOCK}
+	$${AT} $${CC} $${OFLAGS} $${CFLAGS} $${INCS} -I$${LIB_ROOT}$${MLX} -c $$< -o $$@ $${BLOCK}
+endef
+
+# **************************************************************************** #
+#                        Target Generator
+# **************************************************************************** #
+
+$(foreach src,${SRCS},$(eval\
+$(call make_obj,$(subst ${SRC_ROOT},${OBJ_ROOT},${src:.c=.o}),${src})))
+
+# **************************************************************************** #
+#                          Verbose Check
+# **************************************************************************** #
+
+ifeq (${VERBOSE}, 0)
+	MAKEFLAGS += --silent
+	BLOCK := >/dev/null
+else ifeq (${VERBOSE}, 1)
+	MAKEFLAGS += --silent
+	AT := @
+else ifeq (${VERBOSE}, 2)
+	AT := @
+else ifeq (${VERBOSE}, 4)
+	MAKEFLAGS += --debug=v
 endif
 
-ifndef VERBOSE
- MAKEFLAGS += --silent
-.SILENT:
-endif
+# **************************************************************************** #
+#                           Visuals and Messages
+# **************************************************************************** #
 
-#.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*. VISUALS .*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.
 ok:=✓
 ko:=✗
 ck:=・
@@ -204,4 +276,9 @@ cya:=$s36m
 wht:=$s37m
 rst:=$s00m
 ora:=$s38;2;255;153;0m
-#.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.
+
+_OK := $(grn)$(ok)	Compiled		$(rst)
+_CK := $(ora)$(ck)	Creating		$(rst)
+_KO := $(red)$(ko)	Removing		$(rst)
+
+# **************************************************************************** #

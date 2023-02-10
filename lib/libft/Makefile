@@ -6,7 +6,7 @@
 #    By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/24 16:48:08 by bda-silv          #+#    #+#              #
-#*   Updated: 2022/11/21 08:52:02 by                  ###   ########.fr       *#
+#*   Updated: 2023/02/10 15:07:31 by                  ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
 #
@@ -62,7 +62,7 @@ $(OBJS_DIR) :
 	$(MD) $(OBJS_DIR)
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
-	@echo "$(ora)$(ck)	Creating		$@$(rst)"
+#	@echo "$(ora)$(ck)	Creating		$@$(rst)"
 	$(CC) $(CFLAGS) -I$(INCS_DIR) -o $@ -c $<
 
 $(NAME) : $(OBJS)

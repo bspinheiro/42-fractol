@@ -6,15 +6,24 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 07:48:08 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/10 12:58:52 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/10 16:54:45 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
+# ifndef OS
+#  define OS 2
+# endif
+
+# if OS == 1
+#  include "../lib/mlx_linux/mlx.h"
+# elif OS == 2
+#  include "../lib/mlx_darwin/mlx.h"
+# endif
+
 # include "../lib/libft/inc/libft.h"
-# include "../lib/mlx/mlx.h"
 # include "settings.h"
 # include <math.h>
 

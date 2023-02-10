@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   mlx_destroy_display.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
+/*   By: mg <mg@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/10 12:21:37 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/10 14:56:58 by bda-silv         ###   ########.fr       */
+/*   Created: 2020/10/03 18:56:35 by mg                #+#    #+#             */
+/*   Updated: 2020/10/04 01:55:35 by mg               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "mlx_int.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	mlx_destroy_display(t_xvar *xvar)
 {
-	return (ft_strncmp(s1, s2, ft_strlen(s2)));
+	XCloseDisplay(xvar->display);
 }
