@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:42:15 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/13 07:09:04 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/13 14:58:37 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int argc, char **argv)
 
 	if (argc == 2)
 	{
-		argc = argc * 1;
+		(void) argc;
 		normalize(argv);
 		parse(argv, &id);
 		fractol_init(&id);
