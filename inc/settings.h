@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 07:48:08 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/10 12:39:39 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/12 22:48:08 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,5 @@
 # define KEY_SPEED	(0.05)
 # define ZOOM_IN	(1.10)
 # define ZOOM_OUT	(0.90)
-
-# define BTN_CLOSE	(17)
-
-# define ESC 		(53)
-# define LEFT		(123)
-# define RIGHT		(124)
-# define DOWN		(125)
-# define UP			(126)
 
 #endif

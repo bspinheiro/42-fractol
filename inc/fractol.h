@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 07:48:08 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/10 16:54:45 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/12 22:45:11 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@
 
 # if OS == 1
 #  include "../lib/mlx_linux/mlx.h"
+#  include "keymap_linux.h"
 # elif OS == 2
 #  include "../lib/mlx_darwin/mlx.h"
+#  include "keymap_darwin.h"
 # endif
 
 # include "../lib/libft/inc/libft.h"
