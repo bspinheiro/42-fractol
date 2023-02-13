@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 07:48:08 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/12 22:48:08 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/13 07:48:13 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 # define HEIGHT  (1080)
 
 /* ITERATIONS */
-# define IMAX    (100)
+# define IMAX    (120)
 
 /* ERRORLEVEL  */
 # define FAILURE (1)
 # define SUCCESS (0)
 
-/* PALETTE HUE */
+/* PALETTE */
 # define COLOR_0 (0x00F0F8FF)
 # define COLOR_1 (0x00090003)
 # define COLOR_2 (0x00090803)

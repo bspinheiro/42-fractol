@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keymap_darwin.h                                    :+:      :+:    :+:   */
+/*   linux.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 07:48:08 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/12 22:51:02 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/13 07:23:06 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef KEYMAP_DARWIN_H
-# define KEYMAP_DARWIN_H
+#ifndef LINUX_H
+# define LINUX_H
 
-/* KEYCODES FOR MAC */
+/* LINUX KEYCODES */
 # define BTN_CLOSE	(17)
 
-# define ESC 		(53)
-# define LEFT		(123)
-# define RIGHT		(124)
-# define DOWN		(125)
-# define UP			(126)
+# define ESC 		(65307)
+# define LEFT		(65361)
+# define RIGHT		(65363)
+# define DOWN		(65364)
+# define UP			(65362)
 
 #endif

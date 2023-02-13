@@ -6,7 +6,7 @@
 #    By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/10 18:24:14 by bda-silv          #+#    #+#              #
-#*   Updated: 2023/02/10 19:43:19 by                  ###   ########.fr       *#
+#*   Updated: 2023/02/13 07:38:44 by                  ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,8 +32,8 @@ VERBOSE   := 1
 # 3: Make will print each command
 # 4: Make will print all debug info
 #
-# If no value is specified or an incorrect value is given make will print each
-# command like if VERBOSE was set to 3.
+# If no value is specified or an incorrect value is given make will print only
+# echoes like if VERBOSE was set to 1.
 
 # **************************************************************************** #
 #                          Compiler and Flags
@@ -138,15 +138,17 @@ ${PROJ}: ${OBJS}
 .PHONY: clean
 clean:
 	${AT}mkdir -p ${OBJ_ROOT} ${BLOCK}
-	${AT}find ${OBJ_ROOT} -type f -delete ${BLOCK}
-	${AT} ${MAKE} fclean -C ${LIB_ROOT}libft ${BLOCK}
+	${AT}rm -rf  ${OBJ_ROOT}  ${BLOCK}
+	${AT} ${MAKE} clean -C ${LIB_ROOT}libft ${BLOCK}
 	${AT} ${MAKE} clean -C ${LIB_ROOT}${MLX} ${BLOCK}
-	${AT} rm -f libmlx.dylib ${BLOCK}
+	${AT}rm -f libmlx.dylib ${BLOCK}
 	${AT}echo "$(_KO)$(red)${OBJ_ROOT}$(rst)" ${BLOCK}
 
 .PHONY: fclean
 fclean: clean
-	${AT}rm -f ${NAMES} ${BLOCK}
+	${AT} ${MAKE} fclean -C ${LIB_ROOT}libft ${BLOCK}
+	${AT} ${MAKE} fclean -C ${LIB_ROOT}${MLX} ${BLOCK}
+	${AT}rm -rf ${NAMES} ${BLOCK}
 	${AT}echo "$(_KO)$(red)${NAMES}$(rst)" ${BLOCK}
 
 .PHONY: re
@@ -160,6 +162,8 @@ debug: CFLAGS += ${DFLAGS} ${FSANITIZE}
 debug:
 	@echo "$(pnk)"
 	lldb $(RUN_ARGS)
+
+help:
 
 
 run : all
@@ -212,7 +216,7 @@ ready:
 rainbow :
 	@echo "$(red)R$(grn)A$(yel)I$(blu)N$(pnk)B$(cya)O$(wht)W$(rst)"
 
-.PHONY : all clean fclean re norm gig run debug leaks ready rainbow boilerplate
+.PHONY : gig run debug leaks ready rainbow boilerplate
 
 
 # **************************************************************************** #
@@ -232,7 +236,8 @@ norm:
 define make_obj
 ${1} : ${2}
 	$${AT}mkdir -p $${@D} $${BLOCK}
-	$${AT} $${CC} $${OFLAGS} $${CFLAGS} $${INCS} -I$${LIB_ROOT}$${MLX} -c $$< -o $$@ $${BLOCK}
+	$${AT} $${CC} $${OFLAGS} $${CFLAGS} $${INCS} -I$${LIB_ROOT}$${MLX} \
+		-c $$< -o $$@ $${BLOCK}
 endef
 
 # **************************************************************************** #

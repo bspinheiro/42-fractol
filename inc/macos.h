@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keymap_linux.h                                     :+:      :+:    :+:   */
+/*   macos.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 07:48:08 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/12 22:49:08 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/13 07:23:13 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef KEYMAP_LINUX_H
-# define KEYMAP_LINUX_H
+#ifndef MACOS_H
+# define MACOS_H
 
-/* LINUX KEYCODES */
+/* KEYCODES FOR MAC */
 # define BTN_CLOSE	(17)
 
-# define ESC 		(65307)
-# define LEFT		(65361)
-# define RIGHT		(65363)
-# define DOWN		(65364)
-# define UP			(65362)
+# define ESC 		(53)
+# define LEFT		(123)
+# define RIGHT		(124)
+# define DOWN		(125)
+# define UP			(126)
 
 #endif

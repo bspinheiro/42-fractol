@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 07:48:08 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/12 22:45:11 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/13 08:19:50 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 
 # if OS == 1
 #  include "../lib/mlx_linux/mlx.h"
-#  include "keymap_linux.h"
+#  include "linux.h"
 # elif OS == 2
 #  include "../lib/mlx_darwin/mlx.h"
-#  include "keymap_darwin.h"
+#  include "macos.h"
 # endif
 
 # include "../lib/libft/inc/libft.h"
@@ -75,4 +75,6 @@ int		key_events(int keycode, t_data *id);
 int		mouse_events(int key, int x, int y, t_data *id);
 void	on_keypress_move(char c, int s, t_data *id);
 void	on_mouse_scroll(double zoom, int x, int y, t_data *id);
+void	on_mouse_click_reset(t_data *id);
+
 #endif
