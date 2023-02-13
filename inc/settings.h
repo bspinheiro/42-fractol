@@ -6,7 +6,7 @@
 /*   By: bda-silv <bda-silv@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 07:48:08 by bda-silv          #+#    #+#             */
-/*   Updated: 2023/02/13 11:20:21 by bda-silv         ###   ########.fr       */
+/*   Updated: 2023/02/13 13:39:55 by bda-silv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 # define SETTINGS_H
 
 /* WINDOW SIZE */
-# define WIDTH   (1080)
-# define HEIGHT  (1080)
+# define WIDTH   (600)
+# define HEIGHT  (600)
 
 /* ITERATIONS */
-# define IMAX    (120)
+# define IMAX    (200)
 
 /* ERRORLEVEL  */
 # define FAILURE (1)
